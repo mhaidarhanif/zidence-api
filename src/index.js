@@ -7,6 +7,13 @@ const app = express()
 
 app.use(bodyParser.json())
 
+// Get welcome message
+app.get('/', async (req, res) => {
+  res.json({
+    message: 'Zidence API',
+  })
+})
+
 // Get all users
 app.get('/users', async (req, res) => {
   const users = await prisma.user.findMany({})
