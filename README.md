@@ -58,6 +58,17 @@ Open `http://localhost:4000`
 
 ---
 
+## Deployment
+
+### Migrate database for production
+
+```sh
+yarn migrate:deploy
+# prisma migrate deploy --preview-feature
+```
+
+---
+
 ## REST API Documentation
 
 You can access the REST API of the server using the following endpoints:
