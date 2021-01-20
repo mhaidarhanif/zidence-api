@@ -81,6 +81,8 @@ app.get('/properties', async (req, res) => {
   res.json(posts)
 })
 
-const server = app.listen(4000, () =>
-  console.log('🚀 Zidence API: http://localhost:4000\n')
-)
+const PORT = process.env.PORT || 4000
+
+const server = app.listen(PORT, () => {
+  console.log(`🚀 Zidence API :${PORT}`)
+})
