@@ -1,0 +1,24 @@
+{
+  "name": "zidence-api",
+  "version": "0.1.0",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js",
+    "migrate": "prisma migrate dev --preview-feature",
+    "migrate:reset": "prisma migrate reset --preview-feature",
+    "generate": "prisma generate"
+  },
+  "dependencies": {
+    "@prisma/client": "2.15.0",
+    "body-parser": "1.19.0",
+    "express": "4.17.1"
+  },
+  "devDependencies": {
+    "@prisma/cli": "2.15.0",
+    "nodemon": "2.0.7"
+  },
+  "engines": {
+    "node": ">=10.0.0"
+  }
+}
