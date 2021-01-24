@@ -1,11 +1,13 @@
 const express = require('express')
-const bodyParser = require('body-parser')
+const logger = require('morgan')
 const { PrismaClient } = require('@prisma/client')
 
 const prisma = new PrismaClient()
 const app = express()
 
-app.use(bodyParser.json())
+app.use(express.json())
+app.use(express.urlencoded({extended: false}))
+app.use(logger('dev'))
 
 // Get welcome message
 app.get('/', async (req, res) => {
