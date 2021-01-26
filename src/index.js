@@ -1,4 +1,7 @@
 const express = require('express')
+const spdy = require('spdy')
+const path = require('path')
+const fs = require('fs')
 const logger = require('morgan')
 const { PrismaClient } = require('@prisma/client')
 
@@ -92,6 +95,19 @@ app.get('/properties', async (req, res) => {
 
 const PORT = process.env.PORT || 4000
 
-const server = app.listen(PORT, () => {
-  console.log(`🚀 Zidence API :${PORT}`)
-})
+const options = {
+  key: fs.readFileSync(__dirname + '/../server.key'),
+  cert:  fs.readFileSync(__dirname + '/../server.crt')
+}
+
+spdy
+  .createServer(options, app)
+  .listen(PORT, (error) => {
+    if (error) {
+      console.error(error)
+      return process.exit(1)
+    } else {
+      console.log(`🚀 Zidence API :${PORT}`)
+    }
+  })
+

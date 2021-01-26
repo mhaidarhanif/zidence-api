@@ -12,7 +12,9 @@
   },
   "dependencies": {
     "@prisma/client": "2.15.0",
-    "express": "4.17.1"
+    "express": "4.17.1",
+    "morgan": "^1.10.0",
+    "spdy": "^4.0.2"
   },
   "devDependencies": {
     "@prisma/cli": "2.15.0",
