@@ -1,2 +1,13 @@
 ### GET all user
-https://localhost:4000/users
+GET https://localhost:4000/users
+
+### Register new user
+POST https://localhost:4000/auth/register
+Content-Type: application/json
+
+{
+  "email": "user@test.com",
+  "handle": "testeruser",
+  "name": "Tester User",
+  "password": "tester-pass"
+}

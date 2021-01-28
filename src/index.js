@@ -3,44 +3,29 @@ const spdy = require('spdy')
 const path = require('path')
 const fs = require('fs')
 const logger = require('morgan')
+
 const { PrismaClient } = require('@prisma/client')
-
 const prisma = new PrismaClient()
-const app = express()
 
+const authRouter = require('./routes/auth')
+const usersRouter = require('./routes/users')
+
+const app = express()
+// Use global middlewares
 app.use(express.json())
-app.use(express.urlencoded({extended: false}))
+app.use(express.urlencoded({ extended: false }))
 app.use(logger('dev'))
 
-// Get welcome message
+// Get welcome message at home
 app.get('/', async (req, res) => {
   res.json({
     message: 'Zidence API',
   })
 })
 
-// Get all users
-app.get('/users', async (req, res) => {
-  const users = await prisma.user.findMany({})
-
-  res.json(users)
-})
-
-// Register a new user
-app.post(`/auth/register`, async (req, res) => {
-  const { email, handle, name, password } = req.body
-
-  const result = await prisma.user.create({
-    data: {
-      email,
-      handle,
-      name,
-      password,
-    },
-  })
-
-  res.json(result)
-})
+// Other endpoints
+app.use('/auth', authRouter)
+app.use('/users', usersRouter)
 
 // Create a new property listing
 app.post(`/properties`, async (req, res) => {
@@ -97,17 +82,14 @@ const PORT = process.env.PORT || 4000
 
 const options = {
   key: fs.readFileSync(__dirname + '/../server.key'),
-  cert:  fs.readFileSync(__dirname + '/../server.crt')
+  cert: fs.readFileSync(__dirname + '/../server.crt'),
 }
 
-spdy
-  .createServer(options, app)
-  .listen(PORT, (error) => {
-    if (error) {
-      console.error(error)
-      return process.exit(1)
-    } else {
-      console.log(`🚀 Zidence API :${PORT}`)
-    }
-  })
-
+spdy.createServer(options, app).listen(PORT, (error) => {
+  if (error) {
+    console.error(error)
+    return process.exit(1)
+  } else {
+    console.log(`🚀 Zidence API :${PORT}`)
+  }
+})
