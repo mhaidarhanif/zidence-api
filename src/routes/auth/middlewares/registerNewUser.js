@@ -4,11 +4,11 @@ module.exports = async (req, res) => {
   const { email, handle, name, password } = req.body
 
   if (req.isEmailRegistered) {
-    req
+    res
       .status(409)
       .json({ message: 'Email is already registered', data: { email: email } })
   } else if (req.isHandleRegistered) {
-    req.status(409).json({
+    res.status(409).json({
       message: 'This Username is already taken',
       data: { username: handle },
     })
