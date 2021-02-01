@@ -9,7 +9,12 @@ router.post(
   auth.registerNewUser
 )
 // Login
-
+router.post(
+  '/login',
+  auth.isEmailRegistered,
+  auth.isPasswordMatched,
+  auth.authenticateUser
+)
 // Get user profile
 
 module.exports = router

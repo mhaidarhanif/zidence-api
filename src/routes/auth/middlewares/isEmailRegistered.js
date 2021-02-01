@@ -7,6 +7,7 @@ module.exports = async (req, res, next) => {
   })
 
   if (user) {
+    req.userData = user
     req.isEmailRegistered = true
     next()
   } else {
